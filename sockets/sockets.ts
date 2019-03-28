@@ -13,8 +13,9 @@ export const desconectar = ( cliente: Socket ) => {
   });
 }
 // Escuchar mensajes
-export const mensaje = ( cliente: Socket ) => {
+export const mensaje = ( cliente: Socket, io: SocketIO.Server ) => {
   cliente.on('mensaje', ( payload: Mensaje ) => {
     console.log('Mensaje recibido:', payload);
+    io.emit('mensaje-nuevo', payload);
   });
 }
