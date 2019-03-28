@@ -30,12 +30,18 @@ export default class Server {
 
     this.io.on('connection', cliente => {
       console.log('Cliente conectado');
+      cliente.on('disconnect', () => {
+        console.log('Cliente desconectado');
+        
+      });
     });
     
   }
 
-  start( callback: Function ) {
-    this.app.listen( this.port, callback );
+  // TODO:
+  // Cambiar el any por Function
+  start( callback: any ) {
+    this.httpServer.listen( this.port, callback );
   }
 
 
