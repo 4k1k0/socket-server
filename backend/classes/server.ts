@@ -2,7 +2,7 @@ import express from 'express';
 import { SERVER_PORT } from '../global/environment';
 import socketIO from 'socket.io';
 import http from 'http';
-const debug = require('debug')('Class Server:')
+import * as socket from '../sockets/sockets';
 
 export default class Server {
   private static _instance: Server;
@@ -25,9 +25,15 @@ export default class Server {
   }
 
   private escucharSockets() {
-    debug(`Escuchando conexiones - sockets`);
+    console.log(`Escuchando conexiones - sockets`);
     this.io.on('connection', cliente => {
-      debug(`Cliente conectado`);
+      console.log(`Cliente conectado`);
+
+      // Mensajes
+      socket.mensaje(cliente);
+
+      // Desconetar
+      socket.desconectar(cliente);
     })
   }
 
