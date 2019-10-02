@@ -17,3 +17,11 @@ export const mensaje = (cliente: Socket, io: SocketIO.Server) => {
 
   })
 }
+
+// Guardar usuario
+export const login = (cliente: Socket, io: SocketIO.Server) => {
+  cliente.on('configurar-usuario', (payload: {nombre: string}) => {
+    console.log(`Llegó ${payload.nombre}`);
+    console.log(payload);
+  })
+}
