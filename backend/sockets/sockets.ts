@@ -20,8 +20,12 @@ export const mensaje = (cliente: Socket, io: SocketIO.Server) => {
 
 // Guardar usuario
 export const login = (cliente: Socket, io: SocketIO.Server) => {
-  cliente.on('configurar-usuario', (payload: {nombre: string}) => {
+  cliente.on('configurar-usuario', (payload: {nombre: string}, callback: Function) => {
     console.log(`Llegó ${payload.nombre}`);
     console.log(payload);
+    callback({
+      ok: true,
+      mensaje: `Usuario ${payload.nombre}, configurado`
+    })
   })
 }
