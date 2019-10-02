@@ -29,6 +29,9 @@ export default class Server {
     this.io.on('connection', cliente => {
       console.log(`Cliente conectado`);
 
+      // Login
+      socket.login(cliente, this.io);
+
       // Mensajes
       socket.mensaje(cliente, this.io);
 
