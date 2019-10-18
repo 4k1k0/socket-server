@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Lugar } from '../interfaces/lugar';
 
 @Component({
   selector: 'app-mapa',
@@ -8,8 +9,25 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 export class MapaComponent implements OnInit {
 
   @ViewChild('map') mapaElement: ElementRef;
-
   map: google.maps.Map;
+
+  lugares: Lugar[] = [
+    {
+      nombre: 'Udemy',
+      lat: 37.784679,
+      lng: -122.395936
+    },
+    {
+      nombre: 'Bahía de San Francisco',
+      lat: 37.798933,
+      lng: -122.377732
+    },
+    {
+      nombre: 'The Palace Hotel',
+      lat: 37.788578,
+      lng: -122.401745
+    }
+  ];
 
   constructor() { }
 
@@ -25,6 +43,19 @@ export class MapaComponent implements OnInit {
       mapTypeId: google.maps.MapTypeId.ROADMAP
     }
     this.map = new google.maps.Map(this.mapaElement.nativeElement, mapaOpciones);
+    for (const lugar of this.lugares) {
+      this.agregarMarcador(lugar);
+    }
+  }
+
+  agregarMarcador(marcador: Lugar) {
+    const latLng = new google.maps.LatLng(marcador.lat, marcador.lng);
+    const market = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.BOUNCE,
+      position: latLng,
+      draggable: true
+    });
   }
 
 }
