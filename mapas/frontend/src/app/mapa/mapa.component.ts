@@ -11,6 +11,8 @@ export class MapaComponent implements OnInit {
   @ViewChild('map') mapaElement: ElementRef;
   map: google.maps.Map;
 
+  marcadores: google.maps.Marker[] = [];
+
   lugares: Lugar[] = [
     {
       nombre: 'Udemy',
@@ -55,6 +57,18 @@ export class MapaComponent implements OnInit {
       animation: google.maps.Animation.BOUNCE,
       position: latLng,
       draggable: true
+    });
+    this.marcadores.push(market);
+    google.maps.event.addDomListener(market, 'dbclick', (coors) => {
+      market.setMap(null);
+      // Disparar un socket
+    });
+    google.maps.event.addDomListener(market, 'drag', (coors) => {
+      const nuevoMarcador = {
+        lat: coors.latLng.lat(),
+        lng: coors.latLng.lng()
+      }
+      // Disparar un socket
     });
   }
 
